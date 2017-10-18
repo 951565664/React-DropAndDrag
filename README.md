@@ -2,8 +2,10 @@
 It is a simple DropAndDrag with React
 
 ## 版本
-v1.0
+v2.0
+## 更新日志（change log）
 
+-v2.0
 ## Demo
 https://951565664.github.io/React-DropAndDrag/
 
