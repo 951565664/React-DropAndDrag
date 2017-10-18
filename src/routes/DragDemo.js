@@ -1,54 +1,55 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import { connect } from 'dva';
-import { Link } from 'dva/router';
-
 import styles from './DragDemo.less';
-import DragBox from '../components/dragBox/dragBox';
-import TestDemo from '../components/testDragDemo/testDemo';
+import Drag from '../components/drag';
 
 
-function DragDemo({dispatch, DragDemoM}) {
-  const dragEndHandle = (startT, startR) => {
-    dispatch({
-      type: 'DragDemoM/updateState',
-      payload: {
-        startT: startT,
-        startR: startR,
-      }
+class DragDemo extends React.Component{
+  state = {
+		startTop:10,
+		startLeft:10,
+  };
+
+  dragMoveHandle(startTop,startLeft){
+    this.setState({
+      startTop,
+      startLeft,
     })
   }
-
-  const DragBoxProps = {
-      startT: DragDemoM.startT,
-      startR: DragDemoM.startR,
-      DragContainer: DragContainer,
-      dragEndHandle: dragEndHandle,
-      dragW: 200,
-      dragH: 200,
-  }
-  function DragContainer() {
+  
+  render(){
     return (
-      <div style={{ width: '200px', height: '200px' }}
-        // onMouseDown={(event) => { event.stopPropagation()}}
-        // onMouseMove={(event) => { event.stopPropagation()}}
-        // onMouseUp={(event) => { event.stopPropagation()}}
-        // onMouseLeave={(event) => { event.stopPropagation()}}
-        >
-        <TestDemo text={'DragPanel'}></TestDemo>
+    <div className={styles.normal}>
+      <div style={{position:'relative',width:'100%',height:'300px',backgroundColor:'#ccc'}}>
+        活动区域
+      <Drag style={{border: '1px solid #c30000'}}>  
+        <div>
+            这是drag1
+        </div>
+      </Drag>
       </div>
-    );
-  }
-
-  
-  
-  return (
-    <div className={styles.wrapper}>
-      <DragBox {...DragBoxProps}></DragBox>
+      <div style={{height:'50px'}}></div>
+      <div style={{position:'relative',width:'100%',height:'300px',backgroundColor:'#ccc'}}>
+        活动区域
+      <Drag>  
+        <div>
+            这是drag2,
+        </div>
+      </Drag>
+      </div>
+      <div style={{height:'50px'}}></div>
+      
+      <div style={{position:'relative',width:'100%',height:'300px',backgroundColor:'#ccc'}}>
+        活动区域
+      <Drag style={{border: '1px solid #c30000'}} startTop={this.state.startTop } startLeft={this.state.startLeft } dragMoveHandle={this.dragMoveHandle.bind(this)}>  
+        <div >
+            这是drag3
+        </div>
+      </Drag>
+      </div>
     </div>
   );
 }
+}
 
-DragDemo.propTypes = {
-};
-
-export default connect(({DragDemoM})=>({DragDemoM}))(DragDemo);
+export default DragDemo;

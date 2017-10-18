@@ -1,16 +1,18 @@
 import React from 'react';
-import { Router, Route, IndexRoute, Link } from 'dva/router';
-
-import DragDemo from './routes/DragDemo';
-// import SortDragDemo from './routes/SortDragDemo';
+import { Router, Route, Switch } from 'dva/router';
 import IndexPage from './routes/IndexPage';
 
-export default function({ history }) {
+import DragDemo from "./routes/DragDemo.js";
+
+function RouterConfig({ history }) {
   return (
     <Router history={history}>
-      <Route path="/" component={IndexPage}/>
-      <Route path="/DragDemo" component={DragDemo}/>
-      <Route path="/SortDragDemo" component={IndexPage}/>
+      <Switch>
+        <Route path="/dragDemo" component={DragDemo} />
+        <Route path="/" exact component={IndexPage} />
+      </Switch>
     </Router>
   );
-};
+}
+
+export default RouterConfig;
